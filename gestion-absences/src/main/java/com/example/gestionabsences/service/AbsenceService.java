@@ -1,19 +1,20 @@
 package com.example.gestionabsences.service;
 
+import com.example.gestionabsences.dto.AbsenceDTO;
 import com.example.gestionabsences.entity.Absence;
 
 import java.time.LocalDate;
 import java.util.List;
 
 public interface AbsenceService {
-    List<Absence> getAllAbsences();
-    Absence getAbsenceById(Long id);
-    List<Absence> getAbsencesByEtudiantId(Long studentId);
+    List<AbsenceDTO> getAllAbsences();
+    AbsenceDTO getAbsenceById(Long id);
+    List<AbsenceDTO> getAbsencesByEtudiantId(Long studentId);
 
-    List<Absence> getAbsencesByDateRange(LocalDate dateDebut, LocalDate dateFin);
-    List<Absence> getAbsencesByJustifiee(boolean justifiee);
+    List<AbsenceDTO> getAbsencesByDateRange(LocalDate dateDebut, LocalDate dateFin);
+    List<AbsenceDTO> getAbsencesByJustifiee(boolean justifiee);
 
-    Absence saveAbsence(Absence absence, Long etudiantId);
-    Absence updateAbsence(Long id, Absence absence);
+    AbsenceDTO saveAbsence(AbsenceDTO absence, Long etudiantId);
+    AbsenceDTO updateAbsence(Long id, AbsenceDTO absence);
     void deleteAbsence(Long id);
 }

@@ -1,5 +1,6 @@
 package com.example.gestionabsences.controller;
 
+import com.example.gestionabsences.dto.EtudiantDTO;
 import com.example.gestionabsences.entity.Etudiant;
 import com.example.gestionabsences.service.EtudiantService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/etudiants")
 public class EtudiantController {
-
     private final EtudiantService etudiantService;
 
     @Autowired
@@ -21,28 +21,28 @@ public class EtudiantController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Etudiant>> getAllEtudiants() {
+    public ResponseEntity<List<EtudiantDTO>> getAllEtudiants() {
         return ResponseEntity.ok(etudiantService.getAllEtudiants());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Etudiant> getEtudiantById(@PathVariable Long id) {
+    public ResponseEntity<EtudiantDTO> getEtudiantById(@PathVariable Long id) {
         return ResponseEntity.ok(etudiantService.getEtudiantById(id));
     }
 
     @GetMapping("/classe/{classeId}")
-    public ResponseEntity<List<Etudiant>> getEtudiantsByClasseId(@PathVariable Long classeId) {
+    public ResponseEntity<List<EtudiantDTO>> getEtudiantsByClasseId(@PathVariable Long classeId) {
         return ResponseEntity.ok(etudiantService.getEtudiantsByClasseId(classeId));
     }
 
     @PostMapping
-    public ResponseEntity<Etudiant> createEtudiant(@RequestBody Etudiant etudiant, @RequestParam Long classeId) {
-        return new ResponseEntity<>(etudiantService.saveEtudiant(etudiant, classeId), HttpStatus.CREATED);
+    public ResponseEntity<EtudiantDTO> createEtudiant(@RequestBody EtudiantDTO etudiantDTO) {
+        return new ResponseEntity<>(etudiantService.saveEtudiant(etudiantDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Etudiant> updateEtudiant(@PathVariable Long id, @RequestBody Etudiant etudiant) {
-        return ResponseEntity.ok(etudiantService.updateEtudiant(id, etudiant));
+    public ResponseEntity<EtudiantDTO> updateEtudiant(@PathVariable Long id, @RequestBody EtudiantDTO etudiantDTO) {
+        return ResponseEntity.ok(etudiantService.updateEtudiant(id, etudiantDTO));
     }
 
     @DeleteMapping("/{id}")

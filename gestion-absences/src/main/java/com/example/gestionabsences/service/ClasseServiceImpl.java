@@ -1,5 +1,6 @@
 package com.example.gestionabsences.service;
 
+import com.example.gestionabsences.dto.ClasseDTO;
 import com.example.gestionabsences.entity.Classe;
 import com.example.gestionabsences.repository.ClasseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ClasseServiceImpl implements ClasseService {
@@ -18,39 +20,76 @@ public class ClasseServiceImpl implements ClasseService {
     }
 
     @Override
-    public List<Classe> getAllClasses() {
-        return classeRepository.findAll();
+    public List<ClasseDTO> getAllClasses() {
+        List<Classe> classes = classeRepository.findAll();
+        return classes.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Classe> getClassesByNiveau(Integer niveau) {
-        return classeRepository.findByNiveau(niveau);
+    public List<ClasseDTO> getClassesByNiveau(Integer niveau) {
+        List<Classe> classes = classeRepository.findByNiveau(niveau);
+        return classes.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Classe getClasseById(Long id) {
-        return classeRepository.findById(id)
+    public ClasseDTO getClasseById(Long id) {
+        Classe classe = classeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Classe non trouvée avec l'id : " + id));
+        return convertToDTO(classe);
     }
 
     @Override
     @Transactional
-    public Classe saveClasse(Classe classe) {
-        return classeRepository.save(classe);
+    public ClasseDTO saveClasse(ClasseDTO classeDTO) {
+        Classe classe = new Classe();
+        classe.setNom(classeDTO.getNom());
+        classe.setNiveau(classeDTO.getNiveau());
+
+        Classe savedClasse = classeRepository.save(classe);
+        return convertToDTO(savedClasse);
     }
 
     @Override
     @Transactional
-    public Classe updateClasse(Long id, Classe classeDetails) {
-        Classe classe = getClasseById(id);
-        classe.setNom(classeDetails.getNom());
-        classe.setNiveau(classeDetails.getNiveau());
-        return classeRepository.save(classe);
+    public ClasseDTO updateClasse(Long id, ClasseDTO classeDTO) {
+        Classe classe = classeRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Classe non trouvée avec l'id : " + id));
+
+        classe.setNom(classeDTO.getNom());
+        classe.setNiveau(classeDTO.getNiveau());
+
+        Classe updatedClasse = classeRepository.save(classe);
+        return convertToDTO(updatedClasse);
     }
 
     @Override
     @Transactional
     public void deleteClasse(Long id) {
         classeRepository.deleteById(id);
+    }
+
+    private ClasseDTO convertToDTO(Classe classe) {
+        ClasseDTO dto = new ClasseDTO();
+        dto.setId(classe.getId());
+        dto.setNom(classe.getNom());
+        dto.setNiveau(classe.getNiveau());
+        if (classe.getEtudiants() != null) {
+            dto.setEtudiants(classe.getEtudiants().stream()
+                    .map(etudiant -> etudiant.getId())
+                    .collect(Collectors.toList()));
+        }
+        return dto;
+    }
+
+    private Classe toEntity(ClasseDTO dto) {
+        Classe classe = new Classe();
+        classe.setId(dto.getId());
+        classe.setNom(dto.getNom());
+        classe.setNiveau(dto.getNiveau());
+        return classe;
     }
 }

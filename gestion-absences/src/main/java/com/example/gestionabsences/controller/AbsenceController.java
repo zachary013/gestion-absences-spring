@@ -1,6 +1,6 @@
 package com.example.gestionabsences.controller;
 
-import com.example.gestionabsences.entity.Absence;
+import com.example.gestionabsences.dto.AbsenceDTO;
 import com.example.gestionabsences.service.AbsenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,40 +23,42 @@ public class AbsenceController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Absence>> getAllAbsences() {
+    public ResponseEntity<List<AbsenceDTO>> getAllAbsences() {
         return ResponseEntity.ok(absenceService.getAllAbsences());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Absence> getAbsenceById(@PathVariable Long id) {
+    public ResponseEntity<AbsenceDTO> getAbsenceById(@PathVariable Long id) {
         return ResponseEntity.ok(absenceService.getAbsenceById(id));
     }
 
     @GetMapping("/etudiant/{etudiantId}")
-    public ResponseEntity<List<Absence>> getAbsencesByEtudiantId(@PathVariable Long etudiantId) {
+    public ResponseEntity<List<AbsenceDTO>> getAbsencesByEtudiantId(@PathVariable Long etudiantId) {
         return ResponseEntity.ok(absenceService.getAbsencesByEtudiantId(etudiantId));
     }
 
     @GetMapping("/date-range")
-    public ResponseEntity<List<Absence>> getAbsencesByDateRange(
+    public ResponseEntity<List<AbsenceDTO>> getAbsencesByDateRange(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateDebut,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFin) {
         return ResponseEntity.ok(absenceService.getAbsencesByDateRange(dateDebut, dateFin));
     }
 
     @GetMapping("/justifiee")
-    public ResponseEntity<List<Absence>> getAbsencesByJustifiee(@RequestParam boolean justifiee) {
+    public ResponseEntity<List<AbsenceDTO>> getAbsencesByJustifiee(@RequestParam boolean justifiee) {
         return ResponseEntity.ok(absenceService.getAbsencesByJustifiee(justifiee));
     }
 
     @PostMapping
-    public ResponseEntity<Absence> createAbsence(@RequestBody Absence absence, @RequestParam Long etudiantId) {
-        return new ResponseEntity<>(absenceService.saveAbsence(absence, etudiantId), HttpStatus.CREATED);
+    public ResponseEntity<AbsenceDTO> createAbsence(@RequestBody AbsenceDTO absenceDTO, @RequestParam Long etudiantId) {
+        AbsenceDTO createdAbsence = absenceService.saveAbsence(absenceDTO, etudiantId);
+        return new ResponseEntity<>(createdAbsence, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Absence> updateAbsence(@PathVariable Long id, @RequestBody Absence absence) {
-        return ResponseEntity.ok(absenceService.updateAbsence(id, absence));
+    public ResponseEntity<AbsenceDTO> updateAbsence(@PathVariable Long id, @RequestBody AbsenceDTO absenceDTO) {
+        AbsenceDTO updatedAbsence = absenceService.updateAbsence(id, absenceDTO);
+        return ResponseEntity.ok(updatedAbsence);
     }
 
     @DeleteMapping("/{id}")
@@ -64,6 +66,4 @@ public class AbsenceController {
         absenceService.deleteAbsence(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

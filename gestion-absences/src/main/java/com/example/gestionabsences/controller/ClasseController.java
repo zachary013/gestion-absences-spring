@@ -1,5 +1,6 @@
 package com.example.gestionabsences.controller;
 
+import com.example.gestionabsences.dto.ClasseDTO;
 import com.example.gestionabsences.entity.Classe;
 import com.example.gestionabsences.service.ClasseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/classes")
 public class ClasseController {
-
     private final ClasseService classeService;
 
     @Autowired
@@ -21,33 +21,28 @@ public class ClasseController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Classe>> getAllClasses() {
+    public ResponseEntity<List<ClasseDTO>> getAllClasses() {
         return ResponseEntity.ok(classeService.getAllClasses());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Classe> getClasseById(@PathVariable Long id) {
+    public ResponseEntity<ClasseDTO> getClasseById(@PathVariable Long id) {
         return ResponseEntity.ok(classeService.getClasseById(id));
     }
 
     @GetMapping("/niveau/{niveau}")
-    public ResponseEntity<List<Classe>> getClassesByNiveau(@PathVariable Integer niveau) {
+    public ResponseEntity<List<ClasseDTO>> getClassesByNiveau(@PathVariable Integer niveau) {
         return ResponseEntity.ok(classeService.getClassesByNiveau(niveau));
     }
 
-//    @GetMapping("/nom")
-//    public ResponseEntity<List<Classe>> getClassesByNom(@RequestParam String nom) {
-//        return ResponseEntity.ok(classeService.getClassesByNom(nom));
-//    }
-
     @PostMapping
-    public ResponseEntity<Classe> createClasse(@RequestBody Classe classe) {
-        return new ResponseEntity<>(classeService.saveClasse(classe), HttpStatus.CREATED);
+    public ResponseEntity<ClasseDTO> createClasse(@RequestBody ClasseDTO classeDTO) {
+        return new ResponseEntity<>(classeService.saveClasse(classeDTO), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Classe> updateClasse(@PathVariable Long id, @RequestBody Classe classe) {
-        return ResponseEntity.ok(classeService.updateClasse(id, classe));
+    public ResponseEntity<ClasseDTO> updateClasse(@PathVariable Long id, @RequestBody ClasseDTO classeDTO) {
+        return ResponseEntity.ok(classeService.updateClasse(id, classeDTO));
     }
 
     @DeleteMapping("/{id}")
