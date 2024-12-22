@@ -2,6 +2,7 @@ package com.example.gestionabsences.controller;
 
 import com.example.gestionabsences.dto.AbsenceDTO;
 import com.example.gestionabsences.service.AbsenceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -50,10 +51,11 @@ public class AbsenceController {
     }
 
     @PostMapping
-    public ResponseEntity<AbsenceDTO> createAbsence(@RequestBody AbsenceDTO absenceDTO, @RequestParam Long etudiantId) {
-        AbsenceDTO createdAbsence = absenceService.saveAbsence(absenceDTO, etudiantId);
+    public ResponseEntity<AbsenceDTO> createAbsence(@Valid @RequestBody AbsenceDTO absenceDTO) {
+        AbsenceDTO createdAbsence = absenceService.saveAbsence(absenceDTO, absenceDTO.getEtudiantId());
         return new ResponseEntity<>(createdAbsence, HttpStatus.CREATED);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<AbsenceDTO> updateAbsence(@PathVariable Long id, @RequestBody AbsenceDTO absenceDTO) {

@@ -1,7 +1,6 @@
 package com.example.gestionabsences.service;
 
 import com.example.gestionabsences.dto.AbsenceDTO;
-import com.example.gestionabsences.entity.Absence;
 
 import java.time.LocalDate;
 import java.util.List;

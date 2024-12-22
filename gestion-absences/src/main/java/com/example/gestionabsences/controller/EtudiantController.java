@@ -3,6 +3,7 @@ package com.example.gestionabsences.controller;
 import com.example.gestionabsences.dto.EtudiantDTO;
 import com.example.gestionabsences.entity.Etudiant;
 import com.example.gestionabsences.service.EtudiantService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +37,7 @@ public class EtudiantController {
     }
 
     @PostMapping
-    public ResponseEntity<EtudiantDTO> createEtudiant(@RequestBody EtudiantDTO etudiantDTO) {
+    public ResponseEntity<EtudiantDTO> createEtudiant(@Valid @RequestBody EtudiantDTO etudiantDTO) {
         return new ResponseEntity<>(etudiantService.saveEtudiant(etudiantDTO), HttpStatus.CREATED);
     }
 
