@@ -24,9 +24,6 @@ public class Etudiant {
     @Temporal(TemporalType.DATE)
     private Date dateNaissance;
 
-    @Column(unique = true, nullable = false)
-    private String numeroInscription;
-
     @ManyToOne
     @JoinColumn(name = "classe_id", nullable = false)
     private Classe classe;

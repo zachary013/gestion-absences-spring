@@ -9,8 +9,6 @@ import java.util.List;
 @Repository
 public interface ClasseRepository extends JpaRepository<Classe, Long> {
 
-    List<Classe> findByNomClasse(String nom);
-
     List<Classe> findByNiveau(Integer niveau);
-
+    List<Classe> findByNomClasse(String nom);
 }

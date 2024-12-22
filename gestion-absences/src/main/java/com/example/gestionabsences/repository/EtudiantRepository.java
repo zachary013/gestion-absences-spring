@@ -8,8 +8,8 @@ import java.util.Optional;
 
 public interface EtudiantRepository extends JpaRepository<Etudiant, Long> {
 
-    Optional<Etudiant> findByNumeroInscription(String numeroInscription);
     List<Etudiant> findByNom(String nom);
     List<Etudiant> findByPrenom(String prenom);
-    List<Etudiant> findByClasseNiveau(Integer niveau);
+    List<Etudiant> findByClasseId(Long classeId);
+    List<Etudiant> findByNiveauClasse(Integer niveau);
 }

@@ -11,6 +11,6 @@ import java.util.List;
 public interface AbsenceRepository extends JpaRepository<Absence, Long> {
 
     List<Absence> findByEtudiantId(Long etudiantId);
-
     List<Absence> findByDateBetween(LocalDate dateDebut, LocalDate dateFin);
+    List<Absence> findByJustifiee(boolean justifiee);
 }
