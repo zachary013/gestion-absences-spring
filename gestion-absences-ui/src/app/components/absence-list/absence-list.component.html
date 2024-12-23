@@ -1,0 +1,32 @@
+<div class="container mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold mb-4">Absence List</h2>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300">
+      <thead>
+      <tr>
+        <th class="px-4 py-2 bg-gray-100 border-b">ID</th>
+        <th class="px-4 py-2 bg-gray-100 border-b">Date</th>
+        <th class="px-4 py-2 bg-gray-100 border-b">Reason</th>
+        <th class="px-4 py-2 bg-gray-100 border-b">Justified</th>
+        <th class="px-4 py-2 bg-gray-100 border-b">Student ID</th>
+        <th class="px-4 py-2 bg-gray-100 border-b">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let absence of absences">
+        <td class="px-4 py-2 border-b">{{ absence.id }}</td>
+        <td class="px-4 py-2 border-b">{{ absence.date | date }}</td>
+        <td class="px-4 py-2 border-b">{{ absence.raison }}</td>
+        <td class="px-4 py-2 border-b">{{ absence.justifiee ? 'Yes' : 'No' }}</td>
+        <td class="px-4 py-2 border-b">{{ absence.etudiantId }}</td>
+        <td class="px-4 py-2 border-b">
+          <button (click)="deleteAbsence(absence.id)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded">
+            Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+

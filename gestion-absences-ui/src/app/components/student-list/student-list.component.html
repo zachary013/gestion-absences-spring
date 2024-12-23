@@ -1,0 +1,30 @@
+<div class="container mx-auto px-4 py-8">
+  <h2 class="text-2xl font-bold mb-4">Student List</h2>
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-300">
+      <thead>
+      <tr>
+        <th class="px-4 py-2 bg-gray-100 border-b">ID</th>
+        <th class="px-4 py-2 bg-gray-100 border-b">First Name</th>
+        <th class="px-4 py-2 bg-gray-100 border-b">Last Name</th>
+        <th class="px-4 py-2 bg-gray-100 border-b">Date of Birth</th>
+        <th class="px-4 py-2 bg-gray-100 border-b">Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let student of students">
+        <td class="px-4 py-2 border-b">{{ student.id }}</td>
+        <td class="px-4 py-2 border-b">{{ student.prenom }}</td>
+        <td class="px-4 py-2 border-b">{{ student.nom }}</td>
+        <td class="px-4 py-2 border-b">{{ student.dateNaissance | date }}</td>
+        <td class="px-4 py-2 border-b">
+          <button (click)="deleteStudent(student.id)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded">
+            Delete
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
