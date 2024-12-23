@@ -13,6 +13,8 @@ import { AbsenceService } from '../../services/absence.service';
 })
 export class AbsenceListComponent implements OnInit {
   absences: Absence[] = [];
+  loading: boolean = true;
+  error: string | null = null;
 
   constructor(private absenceService: AbsenceService) {}
 
@@ -21,14 +23,19 @@ export class AbsenceListComponent implements OnInit {
   }
 
   loadAbsences(): void {
-    this.absenceService.getAbsences().subscribe(
-      (data) => {
+    this.loading = true;
+    this.error = null;
+    this.absenceService.getAbsences().subscribe({
+      next: (data) => {
         this.absences = data;
+        this.loading = false;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error fetching absences:', error);
+        this.error = 'Erreur lors du chargement des absences. Veuillez réessayer plus tard.';
+        this.loading = false;
       }
-    );
+    });
   }
 
   deleteAbsence(id: number | undefined): void {
@@ -37,16 +44,16 @@ export class AbsenceListComponent implements OnInit {
       return;
     }
 
-    if (confirm('Are you sure you want to delete this absence?')) {
-      this.absenceService.deleteAbsence(id).subscribe(
-        () => {
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette absence ?')) {
+      this.absenceService.deleteAbsence(id).subscribe({
+        next: () => {
           this.loadAbsences();
         },
-        (error) => {
+        error: (error) => {
           console.error('Error deleting absence:', error);
+          this.error = 'Erreur lors de la suppression de l\'absence. Veuillez réessayer plus tard.';
         }
-      );
+      });
     }
   }
 }
-

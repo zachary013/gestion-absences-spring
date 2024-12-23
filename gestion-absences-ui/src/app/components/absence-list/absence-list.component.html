@@ -5,7 +5,16 @@
       Marquer une absence
     </a>
   </div>
-  <table class="min-w-full divide-y divide-gray-200">
+
+  <div *ngIf="loading" class="p-4 text-center">
+    Chargement...
+  </div>
+
+  <div *ngIf="error" class="p-4 text-red-600">
+    {{ error }}
+  </div>
+
+  <table *ngIf="!loading && !error" class="min-w-full divide-y divide-gray-200">
     <thead class="bg-gray-50">
     <tr>
       <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
