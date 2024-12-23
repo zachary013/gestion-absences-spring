@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import {Student} from '../../models/student.model';
 import {StudentService} from '../../services/student.service';
 import {DatePipe} from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-student-list',
   standalone: true,
   imports: [
-    DatePipe
+    DatePipe,
+    RouterLink
   ],
   templateUrl: './student-list.component.html',
   styleUrl: './student-list.component.scss'

@@ -1,30 +1,31 @@
-<div class="container mx-auto px-4 py-8">
-  <h2 class="text-2xl font-bold mb-4">Student List</h2>
-  <div class="overflow-x-auto">
-    <table class="min-w-full bg-white border border-gray-300">
-      <thead>
-      <tr>
-        <th class="px-4 py-2 bg-gray-100 border-b">ID</th>
-        <th class="px-4 py-2 bg-gray-100 border-b">First Name</th>
-        <th class="px-4 py-2 bg-gray-100 border-b">Last Name</th>
-        <th class="px-4 py-2 bg-gray-100 border-b">Date of Birth</th>
-        <th class="px-4 py-2 bg-gray-100 border-b">Actions</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let student of students">
-        <td class="px-4 py-2 border-b">{{ student.id }}</td>
-        <td class="px-4 py-2 border-b">{{ student.prenom }}</td>
-        <td class="px-4 py-2 border-b">{{ student.nom }}</td>
-        <td class="px-4 py-2 border-b">{{ student.dateNaissance | date }}</td>
-        <td class="px-4 py-2 border-b">
-          <button (click)="deleteStudent(student.id)" class="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-2 rounded">
-            Delete
-          </button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+<div class="bg-white shadow-md rounded-lg overflow-hidden">
+  <div class="p-4 flex justify-between items-center bg-gray-50">
+    <h2 class="text-xl font-semibold text-gray-800">Liste des étudiants</h2>
+    <a routerLink="/students/add" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+      Ajouter un étudiant
+    </a>
   </div>
+  <table class="min-w-full divide-y divide-gray-200">
+    <thead class="bg-gray-50">
+    <tr>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prénom</th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nom</th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date de naissance</th>
+      <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+    </tr>
+    </thead>
+    <tbody class="bg-white divide-y divide-gray-200">
+    <tr *ngFor="let student of students">
+      <td class="px-6 py-4 whitespace-nowrap">{{ student.id }}</td>
+      <td class="px-6 py-4 whitespace-nowrap">{{ student.prenom }}</td>
+      <td class="px-6 py-4 whitespace-nowrap">{{ student.nom }}</td>
+      <td class="px-6 py-4 whitespace-nowrap">{{ student.dateNaissance | date }}</td>
+      <td class="px-6 py-4 whitespace-nowrap">
+        <a [routerLink]="['/students/edit', student.id]" class="text-indigo-600 hover:text-indigo-900 mr-4">Modifier</a>
+        <button (click)="deleteStudent(student.id)" class="text-red-600 hover:text-red-900">Supprimer</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
-

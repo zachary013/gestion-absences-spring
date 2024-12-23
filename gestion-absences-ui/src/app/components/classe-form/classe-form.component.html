@@ -1,19 +1,19 @@
 <div class="bg-white shadow-md rounded-lg overflow-hidden">
   <div class="p-4 bg-gray-50">
-    <h2 class="text-xl font-semibold text-gray-800">{{isEditMode ? 'Edit' : 'Add'}} Class</h2>
+    <h2 class="text-xl font-semibold text-gray-800">{{isEditMode ? 'Modifier' : 'Ajouter'}} une classe</h2>
   </div>
   <form [formGroup]="classeForm" (ngSubmit)="onSubmit()" class="p-4">
     <div class="mb-4">
-      <label for="nom" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+      <label for="nom" class="block text-gray-700 text-sm font-bold mb-2">Nom</label>
       <input type="text" id="nom" formControlName="nom" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
     </div>
     <div class="mb-4">
-      <label for="niveau" class="block text-gray-700 text-sm font-bold mb-2">Level</label>
+      <label for="niveau" class="block text-gray-700 text-sm font-bold mb-2">Niveau</label>
       <input type="number" id="niveau" formControlName="niveau" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
     </div>
     <div class="flex items-center justify-between">
       <button type="submit" [disabled]="!classeForm.valid" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-        {{isEditMode ? 'Update' : 'Add'}} Class
+        {{isEditMode ? 'Mettre à jour' : 'Ajouter'}} une classe
       </button>
     </div>
   </form>

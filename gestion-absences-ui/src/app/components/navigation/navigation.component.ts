@@ -11,11 +11,11 @@ import { CommonModule } from '@angular/common';
 })
 export class NavigationComponent {
   navItems = [
-    { title: 'Students', route: '/students', icon: 'users' },
+    { title: 'Etudiants', route: '/students', icon: 'users' },
     { title: 'Classes', route: '/classes', icon: 'academic' },
     { title: 'Absences', route: '/absences', icon: 'calendar' },
-    { title: 'Add Student', route: '/students/add', icon: 'user-plus' },
-    { title: 'Add Absence', route: '/absences/add', icon: 'plus' },
+    { title: 'Ajouter Etudiant', route: '/students/add', icon: 'user-plus' },
+    { title: 'Marquer Absence', route: '/absences/add', icon: 'plus' },
   ];
 }
 
