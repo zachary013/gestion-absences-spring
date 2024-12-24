@@ -35,8 +35,11 @@ com.example.gestionabsences/
 │   └── EtudiantController
 ├── service/
 │   ├── AbsenceService
+    ├── AbsenceServiceImpl
 │   ├── ClasseService
-│   └── EtudiantService
+    ├── ClasseServiceImpl
+│   ├── EtudiantService
+│   └── EtudiantServiceImpl
 ├── dto/
 │   ├── AbsenceDTO
 │   ├── ClasseDTO
